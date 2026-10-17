@@ -1,0 +1,20 @@
+:host { display: flex; flex-direction: column; min-height: 100vh; background: #f3f6fb; }
+.top { display: flex; justify-content: space-between; align-items: center; padding: 18px 32px; background: #1b2535; color: #fff; font-size: 14px; }
+.logo { font-size: 26px; font-weight: 700; }
+.logo span { color: #ffc933; }
+main { flex: 1; display: grid; place-items: center; padding: 32px 16px; }
+.card { width: 100%; max-width: 400px; background: #fff; border-radius: 6px; padding: 28px 30px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); }
+h1 { margin: 0 0 4px; font-size: 26px; }
+.sub { margin: 0 0 18px; color: #555; font-size: 14px; }
+.field { position: relative; margin-bottom: 14px; }
+.field input { width: 100%; padding: 12px; border: 1px solid #c9d1dc; border-radius: 4px; font-size: 14px; }
+.eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: 0; cursor: pointer; font-size: 13px; color: #0a58ca; }
+.link { background: none; border: 0; padding: 0; color: #0a58ca; font-size: 13px; cursor: pointer; }
+.signin { width: 100%; margin-top: 18px; padding: 12px; background: #ffc933; border: 0; border-radius: 4px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.signin:disabled { opacity: 0.6; cursor: default; }
+.error, .info { padding: 10px 12px; border-radius: 4px; font-size: 13px; margin-bottom: 14px; }
+.error { background: #fdecea; color: #b3261e; }
+.info { background: #e6f4ea; color: #1e7e34; }
+.terms { margin: 18px 0 0; text-align: center; font-size: 12px; color: #666; }
+footer { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; padding: 28px 16px; background: #1b2535; color: #fff; font-size: 14px; }
+footer small { display: block; margin-top: 2px; color: #9aa7ba; font-size: 12px; }

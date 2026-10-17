@@ -1,0 +1,49 @@
+<header class="top">
+  <div class="logo">Shop<span>Easy</span></div>
+  <span>Need help?</span>
+</header>
+
+<main>
+  <form class="card" (ngSubmit)="onSubmit()">
+    <h1>Sign in</h1>
+    <p class="sub">Use your BigB account to continue</p>
+
+    @if (error()) {
+      <div class="error" role="alert">{{ error() }}</div>
+    }
+    @if (info()) {
+      <div class="info" role="status">{{ info() }}</div>
+    }
+
+    <div class="field">
+      <input type="email" name="email" [(ngModel)]="email" placeholder="Email" autocomplete="username" />
+    </div>
+
+    <div class="field">
+      <input
+        [type]="showPassword() ? 'text' : 'password'"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      />
+      <button type="button" class="eye" (click)="showPassword.set(!showPassword())">
+        {{ showPassword() ? 'Hide' : 'Show' }}
+      </button>
+    </div>
+
+    <button type="button" class="link" (click)="forgotPassword()">Forgot your password?</button>
+
+    <button type="submit" class="signin" [disabled]="loading()">
+      {{ loading() ? 'Signing in…' : 'Sign in' }}
+    </button>
+
+    <p class="terms">By continuing, you agree to our Conditions of Use and Privacy Notice.</p>
+  </form>
+</main>
+
+<footer>
+  <div>Secure login<small>Your information is safe with us</small></div>
+  <div>Fast and reliable<small>Always at your service</small></div>
+  <div>Support<small>We are here to help</small></div>
+</footer>

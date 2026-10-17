@@ -1,0 +1,115 @@
+<header class="topbar">
+  <div class="brand">BigB</div>
+  <input
+    class="search"
+    type="search"
+    placeholder="Search products by name"
+    [value]="searchText()"
+    (input)="searchText.set($any($event.target).value)"
+  />
+  <div class="user">
+    <span class="avatar">{{ initial() }}</span>
+    <span>{{ userName() }}</span>
+    @if (auth.role()) {
+      <span class="role">{{ auth.role() }}</span>
+    }
+    <button class="logout" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<div class="body">
+  <nav class="sidebar">
+    @for (item of menu; track item.label) {
+      <a [class.active]="item.active"><span>{{ item.icon }}</span> {{ item.label }}</a>
+    }
+  </nav>
+
+  <main class="content">
+    <div class="hello">
+      <div>
+        <h1>Hello, {{ userName() }}!</h1>
+        <p>Here is what is happening with your store today.</p>
+      </div>
+      <span class="date">{{ today | date: 'EEE, d MMM y' }}</span>
+    </div>
+
+    @if (error()) {
+      <div class="alert" role="alert">{{ error() }}</div>
+    }
+
+    <section class="stats">
+      <div class="stat"><span class="icon">💻</span><p>Total laptops</p><strong>{{ laptops().length }}</strong></div>
+      <div class="stat"><span class="icon">📱</span><p>Total mobile phones</p><strong>{{ phones().length }}</strong></div>
+      <div class="stat"><span class="icon">📦</span><p>Total products</p><strong>{{ products().length }}</strong></div>
+      <div class="stat"><span class="icon">✅</span><p>In stock</p><strong>{{ inStockCount() }}</strong></div>
+    </section>
+
+    <section class="banner">
+      <div>
+        <h2>Better devices. Happier customers.</h2>
+        <p>Add the latest laptops and mobile phones to your store.</p>
+        <button class="btn" (click)="showForm.set(!showForm())">
+          {{ showForm() ? 'Close form' : 'Add product' }}
+        </button>
+      </div>
+      <div class="banner-art">💻 📱</div>
+    </section>
+
+    @if (showForm()) {
+      <form class="panel add-form" (ngSubmit)="save()">
+        <h2>Add product</h2>
+        <input name="name" [(ngModel)]="form.name" placeholder="Product name" />
+        <select name="category" [(ngModel)]="form.category">
+          <option value="laptop">Laptop</option>
+          <option value="phone">Mobile phone</option>
+        </select>
+        <input name="price" type="number" [(ngModel)]="form.price" placeholder="Price in ₹" />
+        <input name="specs" [(ngModel)]="form.specs" placeholder="Specs, e.g. 8GB | 256GB" />
+        <label><input type="checkbox" name="inStock" [(ngModel)]="form.inStock" /> In stock</label>
+        @if (formError()) {
+          <div class="alert" role="alert">{{ formError() }}</div>
+        }
+        <div class="row">
+          <button type="submit" class="btn">Save product</button>
+          <button type="button" class="btn ghost" (click)="showForm.set(false)">Cancel</button>
+        </div>
+      </form>
+    }
+
+    <section class="lists">
+      <div class="panel">
+        <h2>Recent laptops</h2>
+        @for (p of shownLaptops(); track p.id ?? p.name) {
+          <div class="item">
+            <span class="thumb">💻</span>
+            <div class="info"><b>{{ p.name }}</b><small>{{ p.specs }}</small></div>
+            <div class="right">
+              <b>{{ p.price | currency: 'INR' : 'symbol' : '1.0-0' }}</b>
+              <span class="tag" [class.out]="!p.inStock">{{ p.inStock ? 'In stock' : 'Out of stock' }}</span>
+            </div>
+          </div>
+        } @empty {
+          <p class="muted">No laptops found.</p>
+        }
+      </div>
+
+      <div class="panel">
+        <h2>Top mobile phones</h2>
+        @for (p of shownPhones(); track p.id ?? p.name) {
+          <div class="item">
+            <span class="thumb">📱</span>
+            <div class="info"><b>{{ p.name }}</b><small>{{ p.specs }}</small></div>
+            <div class="right">
+              <b>{{ p.price | currency: 'INR' : 'symbol' : '1.0-0' }}</b>
+              <span class="tag" [class.out]="!p.inStock">{{ p.inStock ? 'In stock' : 'Out of stock' }}</span>
+            </div>
+          </div>
+        } @empty {
+          <p class="muted">No phones found.</p>
+        }
+      </div>
+    </section>
+  </main>
+</div>
+
+<footer>© 2026 BigB. All rights reserved.</footer>
